@@ -16,7 +16,7 @@ spec:
         app: sales
     spec:
       containers:
-        - name: sales-amd64
+        - name: sales-api
           resources:
             limits:
               cpu: "2000m" # Up to 2 full cores

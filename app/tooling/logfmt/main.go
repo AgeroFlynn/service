@@ -14,7 +14,7 @@ import (
 var service string
 
 func init() {
-	flag.StringVar(&service, "services", "", "filter which services to see")
+	flag.StringVar(&service, "service", "", "filter which service to see")
 }
 
 func main() {
@@ -36,8 +36,8 @@ func main() {
 			continue
 		}
 
-		// If a services filter was provided, check.
-		if service != "" && m["services"] != service {
+		// If a service filter was provided, check.
+		if service != "" && m["service"] != service {
 			continue
 		}
 
@@ -51,7 +51,7 @@ func main() {
 		// I want them in.
 		b.Reset()
 		b.WriteString(fmt.Sprintf("%s: %s: %s: %s: %s: %s: ",
-			m["services"],
+			m["service"],
 			m["ts"],
 			m["level"],
 			traceID,
@@ -63,7 +63,7 @@ func main() {
 		// added for the log.
 		for k, v := range m {
 			switch k {
-			case "services", "ts", "level", "traceid", "caller", "msg":
+			case "service", "ts", "level", "traceid", "caller", "msg":
 				continue
 			}
 
