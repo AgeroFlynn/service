@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sales-pod
-  namespace: sales-system
+  namespace: sales-sys
 spec:
   replicas: 1
   strategy:

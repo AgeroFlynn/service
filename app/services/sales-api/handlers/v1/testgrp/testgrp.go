@@ -3,7 +3,7 @@ package testgrp
 import (
 	"context"
 	"errors"
-	"github.com/AgeroFlynn/service/business/system/validate"
+	"github.com/AgeroFlynn/service/business/sys/validate"
 	"github.com/AgeroFlynn/service/foundation/web"
 	"go.uber.org/zap"
 	"math/rand"
