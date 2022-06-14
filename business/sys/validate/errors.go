@@ -6,7 +6,7 @@ import (
 )
 
 // ErrInvalidID occurs when an ID is not in valid form.
-var ErrInvalidID = errors.New("ID is not in its proper form.")
+var ErrInvalidID = errors.New("ID is not in its proper form")
 
 // ErrorResponse is the form used  for API responses from failures in the API.
 type ErrorResponse struct {

@@ -5,6 +5,7 @@ import (
 	"expvar"
 	"github.com/AgeroFlynn/service/app/services/sales-api/handlers/debug/checkgrp"
 	"github.com/AgeroFlynn/service/app/services/sales-api/handlers/v1/testgrp"
+	"github.com/AgeroFlynn/service/business/sys/auth"
 	"github.com/AgeroFlynn/service/business/web/mid"
 	"github.com/AgeroFlynn/service/foundation/web"
 	"go.uber.org/zap"
@@ -53,6 +54,7 @@ func DebugMux(build string, log *zap.SugaredLogger) http.Handler {
 type APIMuxConfig struct {
 	Shutdown chan os.Signal
 	Log      *zap.SugaredLogger
+	Auth     *auth.Auth
 }
 
 // APIMux constructs a http.Handler with all application routes defined.
@@ -81,4 +83,6 @@ func v1(app *web.App, cfg APIMuxConfig) {
 		Log: cfg.Log,
 	}
 	app.Handle(http.MethodGet, version, "/test", tgh.Test)
+	app.Handle(http.MethodGet, version, "/testauth", tgh.Test, mid.Authenticate(cfg.Auth), mid.Authorize("ADMIN"))
+
 }
