@@ -20,6 +20,12 @@
 # openssl rsa -pubout -in private.pem -out public.pem
 # ./sales-admin genkey
 
+# Running pgcli client for database.
+# brew install pgcli
+# pgcli postgresql://postgres:postgres@localhost
+
+#dblab --host 0.0.0.0 --user postgres --db postgres --pass postgres --ssl disable --port 5432 --driver postgres
+
 # ==============================================================================
 
 run:
@@ -69,11 +75,16 @@ kind-status:
 kind-status-sales:
 	kubectl get pods -o wide --watch
 
+kind-status-db:
+	kubectl get pods -o wide --watch --namespace=database-system
+
 kind-load:
 	cd zarf/k8s/kind/sales-pod; kustomize edit set image sales-api-image=sales-api-amd64:$(VERSION)
 	kind load docker-image sales-api-amd64:$(VERSION) --name $(KIND_CLUSTER)
 
 kind-apply:
+	kustomize build zarf/k8s/kind/database-pod | kubectl apply -f -
+	kubectl wait --namespace=database-system --timeout=120s --for=condition=Available deployment/database-pod
 	kustomize build zarf/k8s/kind/sales-pod | kubectl apply -f -
 
 kind-logs:
