@@ -8,7 +8,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"github.com/AgeroFlynn/service/business/sys/data/dbschema"
+	"github.com/AgeroFlynn/service/business/data/dbschema"
 	"github.com/AgeroFlynn/service/business/sys/database"
 	"github.com/golang-jwt/jwt/v4"
 	"io"
