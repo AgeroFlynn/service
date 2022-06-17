@@ -1,13 +1,14 @@
 # ==============================================================================
 
-# For testing load on the service.
-# go install github.com/rakyll/hey@latest
+# Testing running system
 
 # For testing a simple query on the system. Don't forget to `make seed` first.
 # curl --user "admin@example.com:gophers" http://localhost:3000/v1/users/token
 # export TOKEN="COPY TOKEN STRING FROM LAST CALL"
-# curl -il http://localhost:3000/v1/testauth
-# curl -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/v1/testauth
+# curl -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/v1/users/1/2
+
+# For testing load on the service.
+# hey -m GET -c 100 -n 10000 -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/v1/users/1/2
 #
 #
 # Access metrics directly (4000) or through the sidecar (3001)

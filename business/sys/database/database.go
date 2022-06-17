@@ -18,7 +18,7 @@ import (
 // Set of error variables for CRUD operations.
 var (
 	ErrNotFound              = errors.New("not found")
-	ErrInvalidID             = errors.New("ID is not its proper form")
+	ErrInvalidID             = errors.New("ID is not in its proper form")
 	ErrAuthenticationFailure = errors.New("authentication failed")
 	ErrForbidden             = errors.New("attempted action is not allowed")
 )
@@ -112,8 +112,8 @@ func NamedQuerySlice(ctx context.Context, log *zap.SugaredLogger, db *sqlx.DB, q
 	log.Infow("database.NamedQuerySlice", "traceid", web.GetTraceID(ctx), "query", q)
 
 	val := reflect.ValueOf(dest)
-	if val.Kind() != reflect.Ptr || val.Kind() != reflect.Slice {
-		return errors.New("must provide pointer to a slice")
+	if val.Kind() != reflect.Ptr || val.Elem().Kind() != reflect.Slice {
+		return errors.New("must provide a pointer to a slice")
 	}
 
 	rows, err := db.NamedQueryContext(ctx, query, data)
